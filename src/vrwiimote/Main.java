@@ -1,21 +1,23 @@
 package vrwiimote;
 
-import vrwiimote.wiimote.WiimoteApi;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-//import vrwiimote.vridge.VRidgeControlChannel;
-//import vrwiimote.vridge.VRidgeControllerEndpoint;
+import vrwiimote.vridge.VRidgeControlChannel;
+import vrwiimote.vridge.VRidgeControllerEndpoint;
 
 public class Main {
-
+	private static final Logger LOGGER = Logger.getLogger( Main.class.getName() );
+	
 	public static void main(String[] args) throws Exception {
-		/*VRidgeControlChannel controlChannel = new VRidgeControlChannel();
+		VRidgeControlChannel controlChannel = new VRidgeControlChannel();
 		VRidgeControllerEndpoint endpoint = (VRidgeControllerEndpoint) controlChannel.connectEndpoint("Controller");
-		System.out.println(endpoint.getEndpointAddress());
-		System.out.println(endpoint.getTimeoutSec());
+		LOGGER.log(Level.INFO, endpoint.getEndpointAddress());
+		LOGGER.log(Level.INFO, String.valueOf(endpoint.getTimeoutSec()));
 		endpoint.connect();
-		System.out.println("Connected!");*/
-		WiimoteApi test = new WiimoteApi();
-		test.connect();
+		LOGGER.log(Level.INFO, "Connected!");
+		/*WiimoteApi test = new WiimoteApi();
+		test.connect();*/
 	}
 
 }

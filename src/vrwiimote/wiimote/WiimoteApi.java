@@ -1,22 +1,26 @@
 package vrwiimote.wiimote;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import wiiusej.WiiUseApiManager;
 import wiiusej.Wiimote;
 
 public class WiimoteApi {
+	private static final Logger LOGGER = Logger.getLogger( WiimoteApi.class.getName() );
 	
 	public WiimoteApi() {
 		super();
 	}
 	
 	public void connect() {
-		System.out.println("Scanning for wiimotes...");
+		LOGGER.log(Level.INFO, "Scanning for wiimotes...");
 		Wiimote[] wiimotes = WiiUseApiManager.getWiimotes(1, true);
-		System.out.println("Got wiimote");
+		LOGGER.log(Level.INFO, "Got wiimote");
         Wiimote wiimote = wiimotes[0];
         wiimote.activateMotionSensing();
         wiimote.addWiiMoteEventListeners(new WiimoteEventListener());
-        System.out.println("Event listener added");
+        LOGGER.log(Level.INFO, "Event listener added");
 	}
 
 }

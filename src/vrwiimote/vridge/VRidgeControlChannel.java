@@ -18,7 +18,7 @@ public class VRidgeControlChannel {
 	
 	public void connect() {
 		//  Socket to talk to server
-		LOGGER.log(Level.FINE, "Connecting to VRidge control channel");
+		LOGGER.log(Level.INFO, "Connecting to VRidge control channel");
 		requester = context.socket(ZMQ.REQ);
 		requester.connect("tcp://localhost:38219");
 	}
@@ -26,26 +26,26 @@ public class VRidgeControlChannel {
 	public VRidgeStatusReply getStatus() {
 		VRidgeStatusRequest req = new VRidgeStatusRequest(1);
 		String reqJSON = g.toJson(req);
-        LOGGER.log(Level.FINE, "Sending Status request");
+        LOGGER.log(Level.INFO, "Sending Status request");
         requester.send(reqJSON.getBytes(), 0);
         
-        LOGGER.log(Level.FINE, "Awaiting reply");
+        LOGGER.log(Level.INFO, "Awaiting reply");
         byte[] replyJSON = requester.recv(0);
         VRidgeStatusReply reply = g.fromJson(new String(replyJSON), VRidgeStatusReply.class);
-        LOGGER.log(Level.FINE, "Got Status reply");
+        LOGGER.log(Level.INFO, "Got Status reply");
         return reply;
 	}
 	
 	public VRidgeEndpointReply requestEndpoint(String endpointName) {
 		VRidgeEndpointRequest req = new VRidgeEndpointRequest(1, endpointName);
 		String reqJSON = g.toJson(req);
-        LOGGER.log(Level.FINE, "Sending Endpoint request");
+        LOGGER.log(Level.INFO, "Sending Endpoint request");
         requester.send(reqJSON.getBytes(), 0);
         
-        LOGGER.log(Level.FINE, "Awaiting reply");
+        LOGGER.log(Level.INFO, "Awaiting reply");
         byte[] replyJSON = requester.recv(0);
         VRidgeEndpointReply reply = g.fromJson(new String(replyJSON), VRidgeEndpointReply.class);
-        LOGGER.log(Level.FINE, "Got Endpoint reply");
+        LOGGER.log(Level.INFO, "Got Endpoint reply");
         return reply;
 	}
 	
