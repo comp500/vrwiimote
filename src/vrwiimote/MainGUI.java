@@ -12,8 +12,9 @@ import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import java.awt.Font;
 
 public class MainGUI {
 
@@ -59,26 +60,17 @@ public class MainGUI {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frmVrwiimote.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
-		JSplitPane splitPane = new JSplitPane();
-		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		tabbedPane.addTab("VRidge", null, splitPane, null);
-		
 		JPanel panel_2 = new JPanel();
-		splitPane.setLeftComponent(panel_2);
+		tabbedPane.addTab("VRidge", null, panel_2, null);
 		JButton btnConnectToVridge = new JButton("Connect to VRidge");
 		panel_2.add(btnConnectToVridge);
 		
 		JLabel lblNotConnected = new JLabel("Not connected");
 		panel_2.add(lblNotConnected);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		splitPane.setRightComponent(textArea);
-		
 		btnConnectToVridge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lblNotConnected.setText("Connecting");
-				textArea.setText("Starting connection...");
 			}
 		});
 		
@@ -91,6 +83,15 @@ public class MainGUI {
 		
 		JLabel lblNoWiimotesConnected = new JLabel("No wiimotes connected");
 		panel_1.add(lblNoWiimotesConnected);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		tabbedPane.addTab("Log", null, scrollPane, null);
+		
+		JTextArea textArea_1 = new JTextArea();
+		textArea_1.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		textArea_1.setLineWrap(true);
+		textArea_1.setEditable(false);
+		scrollPane.setViewportView(textArea_1);
 	}
 
 }
