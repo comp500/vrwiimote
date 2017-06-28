@@ -22,8 +22,7 @@ public class WiimoteEventListener implements WiimoteListener {
 
 	@Override
 	public void onButtonsEvent(WiimoteButtonsEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		System.out.println(arg0.isButtonAPressed());
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package vrwiimote;
 
+import vrwiimote.wiimote.WiimoteApi;
+
 //import vrwiimote.vridge.VRidgeControlChannel;
 //import vrwiimote.vridge.VRidgeControllerEndpoint;
 
@@ -12,6 +14,8 @@ public class Main {
 		System.out.println(endpoint.getTimeoutSec());
 		endpoint.connect();
 		System.out.println("Connected!");*/
+		WiimoteApi test = new WiimoteApi();
+		test.connect();
 	}
 
 }
