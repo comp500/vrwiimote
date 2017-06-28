@@ -5,20 +5,25 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
+
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainGUI {
 
 	private JFrame frmVrwiimote;
+	private static final Logger LOGGER = Logger.getLogger( MainGUI.class.getName() );
 
 	/**
 	 * Launch the application.
@@ -69,9 +74,11 @@ public class MainGUI {
 		panel_2.add(lblNotConnected);
 		
 		btnConnectToVridge.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				lblNotConnected.setText("Connecting");
-			}
+		    public void actionPerformed(ActionEvent e)
+		    {
+		    	LOGGER.log(Level.INFO, "Starting VRidge connection");
+		        new VRidgeStart().execute();
+		    }
 		});
 		
 		JPanel panel_1 = new JPanel();
