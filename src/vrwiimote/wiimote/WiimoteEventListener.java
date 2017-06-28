@@ -1,5 +1,6 @@
 package vrwiimote.wiimote;
 
+import wiiusej.values.Orientation;
 import wiiusej.wiiusejevents.physicalevents.ExpansionEvent;
 import wiiusej.wiiusejevents.physicalevents.IREvent;
 import wiiusej.wiiusejevents.physicalevents.MotionSensingEvent;
@@ -22,7 +23,9 @@ public class WiimoteEventListener implements WiimoteListener {
 
 	@Override
 	public void onButtonsEvent(WiimoteButtonsEvent arg0) {
-		System.out.println(arg0.isButtonAPressed());
+		if (arg0.isButtonAPressed() == true) {
+			System.out.println("A pressed");
+		}
 	}
 
 	@Override
@@ -69,8 +72,8 @@ public class WiimoteEventListener implements WiimoteListener {
 
 	@Override
 	public void onMotionSensingEvent(MotionSensingEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		Orientation test = arg0.getOrientation();
+		System.out.println("Values: " + test.getPitch() + " " + test.getRoll() + " " + test.getYaw());
 	}
 
 	@Override
