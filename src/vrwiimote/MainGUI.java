@@ -24,11 +24,6 @@ public class MainGUI {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			// Ignore look and feel exceptions
-		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -45,6 +40,11 @@ public class MainGUI {
 	 * Create the application.
 	 */
 	public MainGUI() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			// Ignore look and feel exceptions
+		}
 		initialize();
 	}
 

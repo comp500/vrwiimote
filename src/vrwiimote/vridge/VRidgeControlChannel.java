@@ -1,8 +1,12 @@
 package vrwiimote.vridge;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.zeromq.ZMQ;
 import com.google.gson.Gson;
 
 public class VRidgeControlChannel {
+	private static final Logger LOGGER = Logger.getLogger( VRidgeControlChannel.class.getName() );
 	private Gson g;
 	private ZMQ.Context context;
 	private ZMQ.Socket requester;
@@ -14,7 +18,7 @@ public class VRidgeControlChannel {
 	
 	public void connect() {
 		//  Socket to talk to server
-		System.out.println("Connecting to VRidge control channel");
+		LOGGER.log(Level.FINE, "Connecting to VRidge control channel");
 		requester = context.socket(ZMQ.REQ);
 		requester.connect("tcp://localhost:38219");
 	}
@@ -22,26 +26,26 @@ public class VRidgeControlChannel {
 	public VRidgeStatusReply getStatus() {
 		VRidgeStatusRequest req = new VRidgeStatusRequest(1);
 		String reqJSON = g.toJson(req);
-        System.out.println("Sending Status request");
+        LOGGER.log(Level.FINE, "Sending Status request");
         requester.send(reqJSON.getBytes(), 0);
         
-        System.out.println("Awaiting reply");
+        LOGGER.log(Level.FINE, "Awaiting reply");
         byte[] replyJSON = requester.recv(0);
         VRidgeStatusReply reply = g.fromJson(new String(replyJSON), VRidgeStatusReply.class);
-        System.out.println("Got Status reply");
+        LOGGER.log(Level.FINE, "Got Status reply");
         return reply;
 	}
 	
 	public VRidgeEndpointReply requestEndpoint(String endpointName) {
 		VRidgeEndpointRequest req = new VRidgeEndpointRequest(1, endpointName);
 		String reqJSON = g.toJson(req);
-        System.out.println("Sending Endpoint request");
+        LOGGER.log(Level.FINE, "Sending Endpoint request");
         requester.send(reqJSON.getBytes(), 0);
         
-        System.out.println("Awaiting reply");
+        LOGGER.log(Level.FINE, "Awaiting reply");
         byte[] replyJSON = requester.recv(0);
         VRidgeEndpointReply reply = g.fromJson(new String(replyJSON), VRidgeEndpointReply.class);
-        System.out.println("Got Endpoint reply");
+        LOGGER.log(Level.FINE, "Got Endpoint reply");
         return reply;
 	}
 	
