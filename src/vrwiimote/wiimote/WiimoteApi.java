@@ -1,16 +1,12 @@
 package vrwiimote.wiimote;
 
-import wiiusej.WiiUseApi;
+import wiiusej.WiiUseApiManager;
 
 public class WiimoteApi {
-	private WiiUseApi wiiuse;
-
-	public WiimoteApi() {
-		wiiuse = new WiiUseApi();
-	}
+	private WiiUseApiManager api;
 	
-	public void connectWiimote() {
-		
+	public WiimoteApi() {
+		api = new WiiUseApiManager();
 	}
 
 }
