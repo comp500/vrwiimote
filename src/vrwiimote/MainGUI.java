@@ -9,7 +9,6 @@ import javax.swing.UIManager;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import java.awt.FlowLayout;
 import javax.swing.JLabel;
 
 import java.util.logging.Level;
@@ -19,6 +18,13 @@ import javax.swing.JScrollPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JSlider;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Canvas;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class MainGUI {
 
@@ -65,13 +71,9 @@ public class MainGUI {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frmVrwiimote.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("VRidge", null, panel_2, null);
+		JPanel panelConnection = new JPanel();
+		tabbedPane.addTab("Connection", null, panelConnection, null);
 		JButton btnConnectToVridge = new JButton("Connect to VRidge");
-		panel_2.add(btnConnectToVridge);
-		
-		JLabel lblNotConnected = new JLabel("Not connected");
-		panel_2.add(lblNotConnected);
 		
 		btnConnectToVridge.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e)
@@ -81,24 +83,94 @@ public class MainGUI {
 		    }
 		});
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Wiimote", null, panel_1, null);
-		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JLabel lblNotConnected = new JLabel("Not connected");
 		
 		JButton btnConnectWiimotes = new JButton("Connect Wiimotes");
-		panel_1.add(btnConnectWiimotes);
 		
 		JLabel lblNoWiimotesConnected = new JLabel("No wiimotes connected");
-		panel_1.add(lblNoWiimotesConnected);
+		GroupLayout gl_panelConnection = new GroupLayout(panelConnection);
+		gl_panelConnection.setHorizontalGroup(
+			gl_panelConnection.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelConnection.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelConnection.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnConnectToVridge)
+						.addComponent(btnConnectWiimotes))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panelConnection.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNoWiimotesConnected)
+						.addComponent(lblNotConnected))
+					.addGap(184))
+		);
+		gl_panelConnection.setVerticalGroup(
+			gl_panelConnection.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelConnection.createSequentialGroup()
+					.addGap(11)
+					.addGroup(gl_panelConnection.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnConnectToVridge)
+						.addComponent(lblNotConnected))
+					.addGap(4)
+					.addGroup(gl_panelConnection.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnConnectWiimotes)
+						.addComponent(lblNoWiimotesConnected))
+					.addGap(4))
+		);
+		panelConnection.setLayout(gl_panelConnection);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		tabbedPane.addTab("Log", null, scrollPane, null);
+		JPanel panelConfig = new JPanel();
+		tabbedPane.addTab("Configuration", null, panelConfig, null);
 		
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setFont(new Font("Monospaced", Font.PLAIN, 12));
-		textArea_1.setLineWrap(true);
-		textArea_1.setEditable(false);
-		scrollPane.setViewportView(textArea_1);
+		JLabel lblControllerDistance = new JLabel("Controller Distance");
+		
+		JSlider slider = new JSlider();
+		slider.setMinorTickSpacing(5);
+		slider.setMajorTickSpacing(20);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		GroupLayout gl_panelConfig = new GroupLayout(panelConfig);
+		gl_panelConfig.setHorizontalGroup(
+			gl_panelConfig.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelConfig.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblControllerDistance)
+					.addGap(2)
+					.addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(126, Short.MAX_VALUE))
+		);
+		gl_panelConfig.setVerticalGroup(
+			gl_panelConfig.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelConfig.createSequentialGroup()
+					.addGroup(gl_panelConfig.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelConfig.createSequentialGroup()
+							.addGap(6)
+							.addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelConfig.createSequentialGroup()
+							.addGap(21)
+							.addComponent(lblControllerDistance)))
+					.addContainerGap(182, Short.MAX_VALUE))
+		);
+		panelConfig.setLayout(gl_panelConfig);
+		
+		JPanel panelPreview = new JPanel();
+		tabbedPane.addTab("Preview", null, panelPreview, null);
+		panelPreview.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNoWiimotesConnected_1 = new JLabel("No wiimotes connected");
+		lblNoWiimotesConnected_1.setHorizontalAlignment(SwingConstants.CENTER);
+		panelPreview.add(lblNoWiimotesConnected_1, BorderLayout.NORTH);
+		
+		Canvas canvas = new Canvas();
+		canvas.setBackground(Color.WHITE);
+		panelPreview.add(canvas, BorderLayout.CENTER);
+		
+		JScrollPane logPane = new JScrollPane();
+		tabbedPane.addTab("Log", null, logPane, null);
+		
+		JTextArea logTextArea = new JTextArea();
+		logTextArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		logTextArea.setLineWrap(true);
+		logTextArea.setEditable(false);
+		logPane.setViewportView(logTextArea);
 	}
 
 }
