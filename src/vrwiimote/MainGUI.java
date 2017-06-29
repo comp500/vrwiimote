@@ -11,20 +11,29 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JSlider;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.border.LineBorder;
 
 public class MainGUI {
 
@@ -143,10 +152,10 @@ public class MainGUI {
 		JLabel lblNoWiimotesConnected_1 = new JLabel("No wiimotes connected");
 		lblNoWiimotesConnected_1.setHorizontalAlignment(SwingConstants.CENTER);
 		panelPreview.add(lblNoWiimotesConnected_1, BorderLayout.NORTH);
-
-		Canvas canvas = new Canvas();
-		canvas.setBackground(Color.WHITE);
-		panelPreview.add(canvas, BorderLayout.CENTER);
+		
+		JPanel previewPanel = new WiimotePreview();
+		previewPanel.setBackground(Color.WHITE);
+		panelPreview.add(previewPanel, BorderLayout.CENTER);
 
 		JScrollPane logPane = new JScrollPane();
 		tabbedPane.addTab("Log", null, logPane, null);
@@ -157,6 +166,42 @@ public class MainGUI {
 		logTextArea.setEditable(false);
 		logPane.setViewportView(logTextArea);
 		logHandler.setTextArea(logTextArea);
+	}
+	
+	@SuppressWarnings("serial")
+	class WiimotePreview extends JPanel {
+
+		public WiimotePreview() {
+			Timer timer = new Timer();
+			WiimotePreview test = this;
+			timer.scheduleAtFixedRate(new TimerTask() {
+				@Override
+				public void run() {
+					SwingUtilities.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							test.repaint();
+						}
+					});
+				}
+			}, 0, 16);
+		}
+
+		public Dimension getPreferredSize() {
+			return new Dimension(250,200);
+		}
+
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			Rectangle bounds = g.getClipBounds();
+			Point loc = MouseInfo.getPointerInfo().getLocation();
+			SwingUtilities.convertPointFromScreen(loc, this);
+			g.drawString("Wiimote 0: " + loc.x + ", " + loc.y, 10, 20);
+			
+			//g.translate(bounds.width / 2, bounds.height / 2);
+			g.setColor(new Color(255, 0, 0));
+			g.fillRect(loc.x, loc.y, 5, 5);
+		} 
 	}
 
 }
