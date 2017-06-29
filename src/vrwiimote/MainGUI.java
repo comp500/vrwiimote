@@ -33,7 +33,6 @@ import java.awt.Dimension;
 
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.border.LineBorder;
 
 public class MainGUI {
 
@@ -193,7 +192,7 @@ public class MainGUI {
 
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			Rectangle bounds = g.getClipBounds();
+			//Rectangle bounds = g.getClipBounds();
 			Point loc = MouseInfo.getPointerInfo().getLocation();
 			SwingUtilities.convertPointFromScreen(loc, this);
 			g.drawString("Wiimote 0: " + loc.x + ", " + loc.y, 10, 20);
