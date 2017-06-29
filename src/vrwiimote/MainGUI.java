@@ -87,9 +87,16 @@ public class MainGUI {
 
 		btnConnectToVridge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LOGGER.log(Level.INFO, "Starting VRidge connection");
-				vridgeRunner = new VRidgeRunner();
-				vridgeRunner.connectController();
+				if (vridgeRunner == null) {
+					LOGGER.log(Level.INFO, "Starting VRidge connection");
+					vridgeRunner = new VRidgeRunner();
+					btnConnectToVridge.setText("Disconnect from VRidge");
+					vridgeRunner.connectController();
+				} else {
+					vridgeRunner.stop();
+					vridgeRunner = null;
+					btnConnectToVridge.setText("Connect to VRidge");
+				}
 			}
 		});
 
