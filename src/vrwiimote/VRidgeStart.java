@@ -14,6 +14,7 @@ public class VRidgeStart extends SwingWorker<Object, Object> {
 	
 	public VRidgeStart() {
 		super();
+		LOGGER.addHandler(MainGUI.logHandler);
 	}
 
 	@Override

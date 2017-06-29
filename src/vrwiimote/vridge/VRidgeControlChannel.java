@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import org.zeromq.ZMQ;
 import com.google.gson.Gson;
 
+import vrwiimote.MainGUI;
+
 public class VRidgeControlChannel {
 	private static final Logger LOGGER = Logger.getLogger( VRidgeControlChannel.class.getName() );
 	private Gson g;
@@ -14,6 +16,7 @@ public class VRidgeControlChannel {
 	public VRidgeControlChannel() {
 		g = new Gson();
 		context = ZMQ.context(1);
+		LOGGER.addHandler(MainGUI.logHandler);
 	}
 	
 	public void connect() {

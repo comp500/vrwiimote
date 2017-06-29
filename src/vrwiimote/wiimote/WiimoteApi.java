@@ -3,6 +3,7 @@ package vrwiimote.wiimote;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import vrwiimote.MainGUI;
 import wiiusej.WiiUseApiManager;
 import wiiusej.Wiimote;
 
@@ -11,6 +12,7 @@ public class WiimoteApi {
 	
 	public WiimoteApi() {
 		super();
+		LOGGER.addHandler(MainGUI.logHandler);
 	}
 	
 	public void connect() {
