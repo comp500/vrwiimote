@@ -38,6 +38,7 @@ public class MainGUI {
 	private JFrame frmVrwiimote;
 	private static final Logger LOGGER = Logger.getLogger(MainGUI.class.getName());
 	public static final TextAreaHandler logHandler = new TextAreaHandler();
+	private VRidgeRunner vridgeRunner;
 
 	/**
 	 * Launch the application.
@@ -87,7 +88,8 @@ public class MainGUI {
 		btnConnectToVridge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LOGGER.log(Level.INFO, "Starting VRidge connection");
-				new VRidgeStart().execute();
+				vridgeRunner = new VRidgeRunner();
+				vridgeRunner.connectController();
 			}
 		});
 
