@@ -1,9 +1,14 @@
 package vrwiimote.vridge;
 
+import java.util.logging.Logger;
+
 import org.zeromq.ZMQ;
 import com.google.gson.Gson;
 
+import vrwiimote.MainGUI;
+
 public abstract class VRidgeEndpoint {
+	private static final Logger LOGGER = Logger.getLogger( VRidgeEndpoint.class.getName() );
 	protected Gson g;
 	protected ZMQ.Context context;
 	protected ZMQ.Socket requester;
@@ -12,6 +17,7 @@ public abstract class VRidgeEndpoint {
 	
 	public VRidgeEndpoint(String endpointAddress, int timeoutSec) {
 		super();
+		LOGGER.addHandler(MainGUI.logHandler);
 		EndpointAddress = endpointAddress;
 		TimeoutSec = timeoutSec;
 		g = new Gson();
@@ -28,7 +34,9 @@ public abstract class VRidgeEndpoint {
 	public abstract void getStatus();
 	
 	public void disconnect() {
-		requester.close();
+		if (requester != null) {
+			requester.close();
+		}
 	}
 
 	public String getEndpointAddress() {

@@ -53,7 +53,9 @@ public class VRidgeControlChannel {
 	}
 	
 	public void disconnect() {
-		requester.close();
+		if (requester != null) {
+			requester.close();
+		}
 	}
 	
 	private VRidgeEndpoint findEndpoint(String endpointName, String endpointAddress, int timeoutSec) {
