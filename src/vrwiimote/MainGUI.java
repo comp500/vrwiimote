@@ -105,25 +105,45 @@ public class MainGUI {
 		JButton btnConnectWiimotes = new JButton("Connect Wiimotes");
 
 		JLabel lblNoWiimotesConnected = new JLabel("No wiimotes connected");
+		
+		JButton btnSendReq = new JButton("send req");
+		btnSendReq.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				vridgeRunner.doTheThing();
+			}
+		});
 		GroupLayout gl_panelConnection = new GroupLayout(panelConnection);
-		gl_panelConnection
-				.setHorizontalGroup(gl_panelConnection.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelConnection.createSequentialGroup().addContainerGap()
-								.addGroup(gl_panelConnection.createParallelGroup(Alignment.LEADING)
-										.addComponent(btnConnectToVridge).addComponent(btnConnectWiimotes))
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addGroup(gl_panelConnection.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblNoWiimotesConnected).addComponent(lblNotConnected))
-								.addGap(184)));
-		gl_panelConnection
-				.setVerticalGroup(gl_panelConnection.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelConnection.createSequentialGroup().addGap(11)
-								.addGroup(gl_panelConnection.createParallelGroup(Alignment.BASELINE)
-										.addComponent(btnConnectToVridge).addComponent(lblNotConnected))
-								.addGap(4)
-								.addGroup(gl_panelConnection.createParallelGroup(Alignment.BASELINE)
-										.addComponent(btnConnectWiimotes).addComponent(lblNoWiimotesConnected))
-								.addGap(4)));
+		gl_panelConnection.setHorizontalGroup(
+			gl_panelConnection.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelConnection.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelConnection.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelConnection.createSequentialGroup()
+							.addGroup(gl_panelConnection.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnConnectToVridge)
+								.addComponent(btnConnectWiimotes))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_panelConnection.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNoWiimotesConnected)
+								.addComponent(lblNotConnected)))
+						.addComponent(btnSendReq))
+					.addContainerGap(278, Short.MAX_VALUE))
+		);
+		gl_panelConnection.setVerticalGroup(
+			gl_panelConnection.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelConnection.createSequentialGroup()
+					.addGap(11)
+					.addGroup(gl_panelConnection.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnConnectToVridge)
+						.addComponent(lblNotConnected))
+					.addGap(4)
+					.addGroup(gl_panelConnection.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnConnectWiimotes)
+						.addComponent(lblNoWiimotesConnected))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnSendReq)
+					.addGap(143))
+		);
 		panelConnection.setLayout(gl_panelConnection);
 
 		JPanel panelConfig = new JPanel();
@@ -210,5 +230,4 @@ public class MainGUI {
 			g.fillRect(loc.x, loc.y, 5, 5);
 		} 
 	}
-
 }

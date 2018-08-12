@@ -48,5 +48,14 @@ public class VRidgeRunner {
 			LOGGER.log(Level.SEVERE, e.toString(), e);
 		}
 	}
+	
+	public void doTheThing() {
+		threadPool.execute(() -> help());
+	}
+	
+	private void help() {
+		LOGGER.log(Level.INFO, "hi");
+		controllerEndpoint.setControllerPosTest();
+	}
 
 }
