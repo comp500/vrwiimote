@@ -1,3 +1,6 @@
+# Archived
+I'm pretty sure this code *does not work!* I've archived it as I don't intend to develop it any further.
+
 # VRWiimote
 This is a driver for the [VRidge API](https://github.com/RiftCat/vridge-api) that lets you use Wii Remotes (aka Wiimotes) in VR.
 
